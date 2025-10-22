@@ -1,0 +1,13 @@
+#!/bin/bash
+
+read -rp "Enter folder path (leave blank for current): " DIR
+DIR=${DIR:-.}
+read -rp "How many top files to show? (default 10): " LIMIT
+LIMIT=${LIMIT:-10}
+
+if [ -d "$DIR" ]; then
+  echo "🔍 Finding top $LIMIT largest files in $DIR..."
+  find "$DIR" -type f -exec du -h {} + | sort -hr | head -n "$LIMIT"
+else
+  echo "❌ Directory not found: $DIR"
+fi
